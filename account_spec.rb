@@ -12,8 +12,16 @@ describe Account do
       expect(account).to eq(account)
     end
 
-    it 'requires two parameters' do
+    it 'should have two parameters' do
       expect { Account.new }.to raise_error(ArgumentError)
+    end
+
+    it 'should raise error with more than two parameters' do
+      expect { Account.new('foo', 'bar', 0 ) }.to raise_error(ArgumentError)
+    end
+
+    it 'should have valid account number' do
+      expect { Account.new('1234567890123') }.to raise_error InvalidAccountNumberError
     end
 
   end
@@ -46,7 +54,7 @@ describe Account do
   end
 
   describe "deposit!" do
-    it 'returns NegativeDepositError if negative amount' do
+    it 'should return NegativeDepositError if negative amount' do
       expect{ account.deposit!(-1) }.to raise_error NegativeDepositError
     end
 
